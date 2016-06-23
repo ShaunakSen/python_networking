@@ -1,0 +1,10 @@
+{
+  "name": "Mini",
+  "phone": {
+    "type": "intl"
+    "number": "8609131604"
+  },
+  "email": {
+    "hide": "yes"
+  }
+}

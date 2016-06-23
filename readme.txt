@@ -80,3 +80,27 @@ this tree is an object
 we can now run methods on this object to scrape out the underlying data
 print 'Name:', tree.find('name').text
 print 'Attr:', tree.find('email').get('hide')
+
+
+JSON
+
+import json
+
+data = '''
+{
+  "name": "Mini",
+  "phone": {
+    "type": "intl"
+    "number": "8609131604"
+  },
+  "email": {
+    "hide": "yes"
+  }
+}
+'''
+
+info = json.loads(data)
+loads => load from string
+now this returns a PYTHON dictionary!! wow..
+
+
