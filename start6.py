@@ -34,6 +34,7 @@ data2 ='''
 '''
 
 info2 = json.loads(data2)
+print info2
 print len(info2)
 for item in info2:
     print item['id']

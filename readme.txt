@@ -103,4 +103,63 @@ info = json.loads(data)
 loads => load from string
 now this returns a PYTHON dictionary!! wow..
 
+print info['name']
+print info['phone']['type']
+
+
+If we have data like:
+
+data2 ='''
+[
+    {
+        "id":"1",
+        "x":"13",
+        "name":"mini"
+    },
+    {
+        "id":"2",
+        "x":"13",
+        "name":"shona"
+    }
+]
+'''
+info2 = json.loads(data2)
+
+This returns a PYTHON list!
+
+for item in info2:
+    print item['id']
+    print item['x']
+    print item['name']
+
+
+
+Service Oriented Approach
+
+This is an approach by which an app can take data from various sources and bring them together
+
+
+For eg when u book an airline ticket u can also book hotels!
+
+So an app uses services from other apps
+services often specify rules: this is url..we will give u json or xml
+
+These web services are often called API
+They have an application and we have an interface that can use the services the application provides.
+So Application Program Interface
+
+
+Web Service Technologies
+
+SOAP and REST
+
+SOAP - crappy and complicated
+
+REST - Representational State Transfer(resource focused)
+
+Remote resources which we CRUD remotely
+
+
+
+
 
