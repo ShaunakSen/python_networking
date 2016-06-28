@@ -206,3 +206,29 @@ FootballFan inherits everything in PartyAnimal2 .. vars, constructors , methods
 
 
 
+Using Databases
+
+Why do we use SQLite with python
+MySql , oracle and all are rich db applications. They are quite heavy
+SQLite is embedded db. this means it is built right in.
+Our cars use SQLite, phones use it
+It is in built in python
+
+
+CREATE TABLE Users(
+name VARCHAR(128),
+email VARCHAR(128)
+)
+
+Why do we specify the max size?
+
+understand that we store data in sql format so that retrieval is very fast from the disk
+To maintain this speed it is essential that the size of data is known for fast lookup
+if the size is 4M instead of 128 the data will be laid out differently
+
+Also for security purpose we specify the size
+
+
+
+
+
