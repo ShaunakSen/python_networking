@@ -25,8 +25,8 @@ for line in fh:
     except:
         cur.execute('''INSERT INTO Counts (email,count)
         VALUES (?,1)''', (email,))
-
     conn.commit()
+
 
 sqlstr = 'SELECT email, count FROM Counts ORDER BY count DESC LIMIT 10'
 
