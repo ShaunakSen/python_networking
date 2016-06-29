@@ -433,3 +433,15 @@ CREATE TABLE Track(id INTEGER NOT NULL
 PRIMARY KEY AUTOINCREMENT UNIQUE,
  title TEXT, album_id INTEGER, genre_id INTEGER,
  len INTEGER, rating INTEGER, count INTEGER)
+
+INSERT INTO Artist(name) VALUES('Led Zepplin')
+INSERT INTO Genre(name) VALUES('Rock')
+
+INSERT INTO Artist(name) VALUES('Led Zepplin')
+
+Always build these tables outward in
+
+ie construct track table at last
+
+Finally if u look at all the data u have replication of nos but no replication of strings!!!
+
