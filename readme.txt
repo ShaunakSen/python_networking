@@ -302,7 +302,7 @@ then count = cur.fetchone()[1]
 
 
 conn.commit() -> write changes back to disk
-
+put this outside the loop to make ur program run faster
 
 sqlstr = 'SELECT email, count FROM Counts ORDER BY count DESC LIMIT 10'
 
@@ -313,4 +313,123 @@ cur.close()
 
 row is also a list
 
+Building a Data Model
 
+Basic Rule: Dont put the same string twice. Use a relationship instead
+in a column:
+
+Mini
+Mini
+
+This is bad
+
+make a table
+
+1  Mini
+
+And in second table put
+1
+1
+
+Thus connection bw one table and another
+This shortens string length
+Here we had Mini
+what if we had a 100 char string
+we reference an int instead of that long string
+That saves so much time
+
+See the repitition of string problem in db_probs.png
+
+The columns are
+
+Track   Len     Artist      Album       Genre       Rating      Count
+
+
+Go across all of the columns
+See if that particular column represents a thing in the real world or is it an attribute of the thing?
+
+Where to start?
+
+Think about the thing ie most essential to the app
+- Track
+
+First table we are gonna build is the track table
+
+Then look at all other columns?
+Which of them are themselves tables and which are simply attributes of track?
+
+Track
+______
+Title
+Rating
+Len
+Count
+
+This is our 1st table
+
+Next Album
+
+Track --->[belongs to]  Album --->[belongs to] Artist
+
+Where does Genre fit in?
+
+If genre was an attribute of album
+
+Then changing genre of 1 song would change genre of all songs in album
+Similarly for Artist
+
+Track belongs to genre
+
+
+
+Track                       Album
+______                    __________
+
+[id]                          [id]
+title                         title
+rating
+len
+count
+(album_id)
+
+
+
+album_id ------------->  id
+
+it is a foreign key
+
+Logical key is the title in both tables
+It signifies that we use title for WHERE clauses ir for lookup
+So we indicate to database that we will be searching by title often so store it in a manner
+so that fast search is possible
+
+
+Track                       Album               Artist
+______                    __________          ___________
+
+[id]                          [id]                 [id]
+title                         title                name
+rating                       (artist_id)
+len
+count
+(album_id)
+
+Album (artist_id) ---> Artist [id]
+
+Track                       Album               Artist            Genre
+______                    __________          ___________       ___________
+
+[id]                          [id]                 [id]             [id]
+title                         title                name             name
+rating                       (artist_id)
+len
+count
+(album_id)
+(genre_id)
+
+Track (genre_id) ----> Genre [id]
+
+CREATE TABLE Track(id INTEGER NOT NULL
+PRIMARY KEY AUTOINCREMENT UNIQUE,
+ title TEXT, album_id INTEGER, genre_id INTEGER,
+ len INTEGER, rating INTEGER, count INTEGER)
