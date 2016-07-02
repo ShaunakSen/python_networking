@@ -526,7 +526,128 @@ stuff = ET.parse(fname)
 parse takes in a file name and reads the XML
 
 
+//See assgn2.py
 
 
+MANY TO MANY RELATIONSHIPS
+
+Track       Album
+id          id
+title       title
+rating
+len
+count
+album_id
+
+album_id -----> id
+[many]          [one]
+
+
+An album has many tracks
+We have a foreign key on [many] side
+
+This is One to Many
+
+But sometimes we have many to many
+
+Books - Authors
+one book many have many authors
+one author may have many books
+
+Book
+title
+author_id
+
+we cant do this as there may be many authors
+
+Similarly
+Author
+name
+book_id
+
+is not possible
+
+Soln: we build a table in the middle called Junction Table
+
+This table models nothing but the connection between them
+
+
+Lets take an eg
+Course and User
+
+many to many
+
+Course          Member         User
+id              user_id         id
+title           course_id       name
+                                email
+
+
+user_id --------->  id(User)  Many to one
+
+course_id ------->   id(Course) Many to one
+
+
+Each row of Member connects a user with a course
+
+
+Both user_id and course_id together make primary key
+This is called a composite key
+
+Sometimes in Member table we can add a field for Role
+
+eg I or S for instructor or student
+
+ie for a particular user course combo user is instructor or student
+
+Create a fresh db: courseradb
+
+CREATE TABLE User(
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	name TEXT,
+	email TEXT
+	)
+
+CREATE TABLE Course(
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	title TEXT
+	)
+
+CREATE TABLE Course(
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	title TEXT
+	)
+
+INSERT DATA
+
+INSERT INTO User (name, email) VALUES ('Jane', 'jane@tsugi.org');
+INSERT INTO User (name, email) VALUES ('Ed', 'ed@tsugi.org');
+INSERT INTO User (name, email) VALUES ('Sue', 'sue@tsugi.org');
+
+INSERT INTO Course (title) VALUES ('Python');
+INSERT INTO Course (title) VALUES ('SQL');
+INSERT INTO Course (title) VALUES ('PHP');
+
+0= student  1= instructor
+
+To build member table:
+
+INSERT INTO Member (user_id, course_id, role) VALUES (1,1,1);
+
+user 1 is in course 1 as an instructor
+
+INSERT INTO Member (user_id, course_id, role) VALUES (2,1,0);
+INSERT INTO Member (user_id, course_id, role) VALUES (3,1,0);
+INSERT INTO Member (user_id, course_id, role) VALUES (1,2,0);
+INSERT INTO Member (user_id, course_id, role) VALUES (2,2,1);
+INSERT INTO Member (user_id, course_id, role) VALUES (2,3,1);
+INSERT INTO Member (user_id, course_id, role) VALUES (3,3,0);
+
+View the data
+
+SELECT User.name, Member.role, Course.title
+FROM User JOIN Member JOIN Course
+ON Member.user_id = User.id AND Member.course_id = Course.id
+ORDER BY Course.title, Member.role DESC, User.name
 
 
