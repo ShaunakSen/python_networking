@@ -445,3 +445,88 @@ ie construct track table at last
 
 Finally if u look at all the data u have replication of nos but no replication of strings!!!
 
+
+JOIN
+
+JOIN operation links across several tables as part of a select operation
+
+SELECT  album.title, artist.name FROM album JOIN artist ON album.artist_id = artist.id
+[what we wanna see]              [tables that hold the data]    [How the tables are linked]
+
+Who Made Who	AC/DC
+IV	            Led Zepplin
+
+
+SELECT track.title, genre.name FROM track JOIN genre ON track.genre_id = genre.id
+
+Black Dog	    Rock
+Stairway	    Rock
+About To Rock	Metal
+Who Made Who	Metal
+
+
+Notice here we have reconstructed the data
+This is what the user wants to see.. but in database we are storing data optimally
+
+If we dont put in ON clause it selects ALL combinations
+
+So we can think of JOIN as all combinations of 2 tables
+ON picks the combinations which match
+
+SELECT track.title, artist.name, album.title, genre.name FROM track JOIN genre JOIN album JOIN artist ON track.genre_id = genre.id AND
+	track.album_id = album.id AND album.artist_id = artist.id
+
+
+Black Dog	    Led Zepplin	    IV	            Rock
+Stairway	    Led Zepplin	    IV	            Rock
+About To Rock	    AC/DC	    Who Made Who	Metal
+Who Made Who	    AC/DC	    Who Made Who	Metal
+
+
+I tunes Excercise
+
+We have an itunes playlist in XML
+we want to store this info in a db
+
+import xml.etree.ElementTree as ET
+import sqlite3
+
+conn = sqlite3.connect('trackdb.sqlite')
+cur = conn.cursor()
+
+CREATE SOME TABLES
+
+cur.execute('''
+CREATE TABLE IF NOT EXISTS Artist (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    name TEXT UNIQUE
+)''')
+
+cur.execute('''
+CREATE TABLE IF NOT EXISTS Album (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    artist_id INTEGER,
+    title TEXT UNIQUE
+)''')
+
+cur.execute('''
+CREATE TABLE IF NOT EXISTS Track (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    title TEXT UNIQUE,
+    album_id INTEGER,
+    len INTEGER, rating INTEGER, count INTEGER
+)''')
+
+We add UNIQUE to some fields. we want to use them as logical keys
+
+fname = 'tracks/Library.xml'
+
+stuff = ET.parse(fname)
+
+parse takes in a file name and reads the XML
+
+
+
+
+
+
